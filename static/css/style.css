@@ -1,0 +1,17 @@
+.icons a{
+    text-decoration: none;
+}
+.navbar-brand h1{
+    color: #0c096b;
+    font-weight: 500;
+    font-family: Fantasy;
+}
+.navbar-nav li a{
+    color: #0c096b !important;
+    font-weight: 700;
+    font-size: 1rem;
+}
+.login_btn{
+    background-color: #de68d2;
+    border-radius: 1rem !important;
+}
