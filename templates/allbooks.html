@@ -1,0 +1,20 @@
+{% extends "structure.html" %}
+{% block title %}Explore Books{% endblock title %}
+
+{% block body %}
+{% load static %}
+<div class="container d-flex flex-wrap">
+    {% for i in data %}
+    <div class="card m-4" style="width: 18rem;">
+        <img class="card-img-top" src= "media/{{i.bookcover}}" style="height:18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{i.booktitle}}</h5>
+          <p class="card-text">{{i.bookdescription|linebreaksbr}}</p>
+          <a href="all-books/detail{{i.id}}" style="background-color:#0c096b; color:white;" class="btn">Preview Book Details</a>
+        </div>
+    </div>
+    {% endfor %}
+   
+    
+</div>
+{% endblock body %}

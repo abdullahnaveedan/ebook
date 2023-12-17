@@ -1,0 +1,145 @@
+{% extends "structure.html" %} {% block title %}Upload Book{% endblock title %}
+{% block css %} hr{ border-top: 1px solid black; margin-right:18rem;
+margin-left:18rem; } .form:hover{ box-shadow:10px 17px 31px; } label{
+font-weight:500; } {% endblock css %} {% block body %}
+
+<div
+  class="container form "
+  style="
+    margin-top: 2rem !important;
+    padding: 2rem;
+    background: #ddd;
+    border-radius: 8px;
+  "
+>
+  <div class="text-center">
+    <h5 class="text-uppercase" style="font-weight: 900">
+      <span style="color: #0c096b">UPLOAD</span> BOOK DETAILS
+    </h5>
+    <hr />
+  </div>
+
+  <div class="d-flex">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="">Book Title </label>
+          <input
+            type="text"
+            name="booktitle"
+            class="form-control"
+            placeholder="Book Title"
+          />
+        </div>
+        <div class="form-group col-md-12">
+          <label for="">Author Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="authorname"
+            placeholder="Author Name"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputAddress">Book Description</label>
+        <textarea
+          type="text"
+          class="form-control"
+          name="bookdescription"
+          
+          placeholder="Book Description"
+        ></textarea>
+      </div>
+
+      <div class="form-group ">
+        <label for="inputAddress">Catagory</label>
+        <br>
+      <select class="form-select col-md-14 form-control" name="catagory" >
+        <option disabled>--Choose Category--</option>
+        <option value="Fiction" >Fiction</option>
+        <option value="Non-Fiction">Non-Fiction</option>
+        <option value="Mystery/Thriller">Mystery/Thriller</option>
+        <option value="Science Fiction/Fantasy">Science Fiction/Fantasy</option>
+        <option value="Romance">Romance</option>
+        <option value="Historical Fiction">Historical Fiction</option>
+        <option value="Biography/Memoir">Biography/Memoir</option>
+        <option value="Self-Help">Self-Help</option>
+        <option value="Business/Economics">Business/Economics</option>
+        <option value="Science/Nature">Science/Nature</option>
+        <option value="Technology/Computers">Technology/Computers</option>
+        <option value="Health/Fitness">Health/Fitness</option>
+        <option value="Travel">Travel</option>
+        <option value="History">History</option>
+        <option value="Philosophy">Philosophy</option>
+        <option value="Psychology">Psychology</option>
+        <option value="Religion/Spirituality">Religion/Spirituality</option>
+        <option value="Art/Photography">Art/Photography</option>
+        <option value="Music">Music</option>
+        <option value="Cooking/Food">Cooking/Food</option>
+        <option value="Children's">Children's</option>
+        <option value="Young Adult">Young Adult</option>
+        <option value="Poetry">Poetry</option>
+        <option value="Graphic Novels/Comics">Graphic Novels/Comics</option>
+        <option value="Education/Reference">Education/Reference</option>
+      </select>
+      <div class="form-group col-md-14">
+        <label for="">Language</label>
+        <input
+          type="text"
+          class="form-control"
+          name="language"
+          placeholder="Language"
+        />
+        </div>
+        <div class="form-group col-md-14">
+            <label for="">Keyword <small>(Only one)</small></label>
+            <input
+              type="text"
+              class="form-control"
+              name="keyword"
+              placeholder="Keyword"
+              id="myInput"
+              onkeydown="disableSpace(event)"
+            />
+        </div>
+      
+      <div class="form-group col-md-14">
+        <label for="inputZip">Book Cover</label>
+        <input
+          type="file"
+          name="bookcover"
+          class="form-control"
+          accept="image/*"
+        />
+      </div>
+      <div class="form-group col-md-14">
+        <label for="inputZip">Upload Book</label>
+        <input
+          type="file"
+          name="bookpdf"
+          class="form-control"
+          accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Upload Book</button>
+    </form>
+  </div>
+  
+</div>
+</div>
+<br /><br /><br />
+{% endblock body %}
+
+{% block js %}
+function disableSpace(event) {
+    if (event.keyCode === 32) {
+      alert("Space Disable")
+      event.preventDefault();
+    }
+  }
+{% endblock js %}
