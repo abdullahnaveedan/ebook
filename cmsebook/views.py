@@ -87,8 +87,10 @@ def upload_book(request):
         return redirect("all_books")
     return render(request, "uploadbook.html")
 
-def showdetailbook(request,bookid):
-    param={
-        'data':bookinfo.objects.get(id = bookid)
-    }
-    return render(request,"bookdetail.html",param)
+def showdetailbook(request, bookid):
+    if request.user.is_authenticated:
+        param = {
+            'data': bookinfo.objects.get(id=bookid)
+        }
+        return render(request, "bookdetail.html", param)
+    return redirect("log_in")
