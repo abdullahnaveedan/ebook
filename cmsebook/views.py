@@ -10,7 +10,10 @@ from django.core.files.storage import default_storage
 # Create your views here.
 
 def index(request):
-    return render(request,"index.html")
+    param = {
+            'data': bookinfo.objects.all()[:3]
+        }
+    return render(request,"index.html",param)
 
 def all_books(request):
     data = bookinfo.objects.all()
