@@ -12,6 +12,7 @@
     />
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg' %}" type="image/x-icon">
     <style>
       
       {% block css %}{% endblock css %}
@@ -127,7 +128,7 @@
                 <a class="nav-link text-uppercase" href="#">Blogs </a>
               </li>
               <li class="nav-item mx-3">
-                <a class="nav-link text-uppercase" href="#">Top Trending </a>
+                <a class="nav-link text-uppercase" href="/top-trend">Top Trending </a>
               </li>
               
                 {% if user.is_authenticated %}

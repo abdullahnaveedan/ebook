@@ -584,36 +584,16 @@ svg {
   <div class="container">
     <hr>
     <div class="d-flex " style="margin-left: 4rem; margin-top: 4rem;">
-      {% for  in  %}
-        
+      {% for i in data %}
+        <div class="card m-4" style="width: 18rem;">
+          <img class="card-img-top" src= "media/{{i.bookcover}}" style="height:18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{i.booktitle}}</h5>
+            <p class="card-text">{{i.bookdescription|linebreaksbr}}</p>
+            <a href="all-books/detail{{i.id}}" style="background-color:#0c096b; color:white;" class="btn">Preview Book Details</a>
+          </div>
+      </div>
       {% endfor %}
-      <div class="card m-2" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-
-    <div class="card m-2" style="width: 18rem;">
-      <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-
-    <div class="card m-2" style="width: 18rem;">
-      <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-
   </div>
   </div>
 

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from .models import *
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-
+from django.db.models.functions import Random
 # Create your views here.
 
 def index(request):
@@ -16,7 +16,7 @@ def index(request):
     return render(request,"index.html",param)
 
 def all_books(request):
-    data = bookinfo.objects.all()
+    data = bookinfo.objects.all().order_by(Random())
     param = {'data' : data}
     return render(request, "allbooks.html",param)
 
@@ -97,3 +97,9 @@ def showdetailbook(request, bookid):
         }
         return render(request, "bookdetail.html", param)
     return redirect("log_in")
+
+def top_trend(request):
+    param = {
+            'data': bookinfo.objects.all()[:3]
+    }
+    return render(request,"top_trend.html",param)
