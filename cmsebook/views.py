@@ -16,9 +16,22 @@ def index(request):
     return render(request,"index.html",param)
 
 def all_books(request):
-    data = bookinfo.objects.all().order_by(Random())
-    param = {'data' : data}
-    return render(request, "allbooks.html",param)
+    cnt = 0
+    data = None  # Initialize data to None
+
+    if request.method == "GET":
+        form_val = request.GET.get("search")
+        if form_val is not None:
+            data = bookinfo.objects.filter(booktitle__icontains=form_val)
+        else:
+            data = bookinfo.objects.all().order_by('?')  # '?' for random ordering
+        cnt = len(data)
+
+    param = {
+        'data': data,
+        'length': cnt
+    }
+    return render(request, "allbooks.html", param)
 
 def log_in(request):
     return render(request, "login.html")
@@ -103,3 +116,7 @@ def top_trend(request):
             'data': bookinfo.objects.all()[:3]
     }
     return render(request,"top_trend.html",param)
+
+def downloadbook(request,bookid):
+    
+    return render(request, "bookdetail.html")

@@ -1,11 +1,18 @@
 {% extends "structure.html" %}
 {% block title %}Top Trending{% endblock title %}
+{% block css %}
+.card{
+  box-shadow:10px 10px 10px #ccc;
+}
+{% endblock css %}
 {% block body %}
 <div class="container-fluid" style="background-color: #f5f2f2;">
-    <h1 class="font-weight-bold text-center" style="color: #0c096b; padding-top: 5rem;">Trending Books</h1>
+    <h1 class="font-weight-bold text-center text-uppercase" style="color: #0c096b;font-weight: 900; padding-top: 5rem;">
+      <svg width="5rem" height="5rem" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>ionicons-v5-c</title><polyline points="352 144 464 144 464 256" style="fill:none;stroke:#0c096b ;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/><path d="M48,368,169.37,246.63a32,32,0,0,1,45.26,0l50.74,50.74a32,32,0,0,0,45.26,0L448,160" style="fill:none;stroke:#0c096b;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/></svg>
+      Top Trending</h1>
     <div class="container">
       <hr>
-      <div class="d-flex " style="margin-left: 4rem; margin-top: 4rem;">
+      <div class="d-flex flex-wrap" style="margin-left: 4rem; margin-top: 4rem;">
         {% for i in data %}
           <div class="card m-4" style="width: 18rem;">
             <img class="card-img-top" src= "media/{{i.bookcover}}" style="height:18rem;">
