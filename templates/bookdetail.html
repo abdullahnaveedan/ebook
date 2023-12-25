@@ -18,21 +18,87 @@
     animation: moveUpDown 2s infinite; 
     cursor: pointer;
   }
-  figure:hover{
-    opacity:0.9;
-    border-radius:1.1rem;
-    box-shadow:10px 10px 10px #ccc;
-  }
-  figure img{
-    border-radius:1rem;
-  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif
+}
+
+
+.container .card
+{
+    max-width: 300px;
+    height: 215px;
+    margin: 30px 10px;
+    padding: 20px 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    transition: 0.3s ease-in-out;
+}
+.container .card:hover
+{
+    height: 450px;
+}
+.container .card .imgContainer
+{
+    position: relative;
+    width:250px;
+    height:250px;
+    top:-50px;
+    left:10px;
+    z-index: 1;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+.container .card .imgContainer img
+{
+    max-width: 100%;
+    border-radius: 4px;
+}
+.container .card .content
+{
+    position: relative;
+    margin-top: -140px;
+    padding: 10px 15px;
+    text-align: center;
+    color:#111;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease-in-out;
+}
+.container .card:hover .content
+{
+    visibility: visible;
+    opacity: 1;
+    margin-top: -40px;
+    transition-delay: 0.3s;
+}
+
+@media (max-width: 330px){
+    .container .card .imgContainer{
+        left: -2px;
+    }
+}
 {% endblock css %}
 {% block body %}
 <div class="container pt-4 d-flex flex-wrap justify-content-around">
-    <div class="img">
-        <figure>
-            <a href="/media/{{data.bookfile}}" target="_blank" ><img src="/media/{{data.bookcover}}" style="width: 28rem;"></a>
-        </figure>
+    
+    <div class="containers d-flex align-items-center justify-content-center position-relative flex-wrap">
+      <div class="card d-flex position-relative flex-column">
+          <div class='imgContainer'>
+              <img src='/media/{{data.bookcover}}'>
+          </div>
+          <div class="content">
+              <h2 class="text-uppercase">{{data.booktitle}}</h2>
+
+              <p >
+                {{data.bookdescription}}
+              </p>
+
+          </div>
+      </div>
     </div>
 
     <div class="detail">
@@ -72,8 +138,11 @@
                 <a href="download-book" class="btn " style="color: #0c096b; background-color: #DE68D2; font-weight: 600;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-download-fill download-btn" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 0a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 4.095 0 5.555 0 7.318 0 9.366 1.708 11 3.781 11H7.5V5.5a.5.5 0 0 1 1 0V11h4.188C14.502 11 16 9.57 16 7.773c0-1.636-1.242-2.969-2.834-3.194C12.923 1.999 10.69 0 8 0m-.354 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V11h-1v3.293l-2.146-2.147a.5.5 0 0 0-.708.708z"/>
-                  </svg> Download Book</a>
-                
+                  </svg> Download Book
+                </a>
+                <a href="/media/{{data.bookfile}}" class="btn btn-info" style="color: #0c096b; background-color: #DE68D2; font-weight: 600;">
+                  Preview
+              </a>
             </div>
 
             <div class="form-group">

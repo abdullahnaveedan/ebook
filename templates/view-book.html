@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Document</title>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+</head>
+<body>
+    {% if file_path %}
+        <div>
+            <canvas id="pdfCanvas" style="border:1px solid black;"></canvas>
+        </div>
+        <script>
+            var url = "{{ file_path }}";
+
+            // Load PDF.js
+            pdfjsLib.getDocument(url).then(function(pdf) {
+                // Fetch the first page
+                pdf.getPage(1).then(function(page) {
+                    var canvas = document.getElementById('pdfCanvas');
+                    var context = canvas.getContext('2d');
+
+                    // Set the canvas dimensions to match the page dimensions
+                    var viewport = page.getViewport({ scale: 1.5 });
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    // Render the page on the canvas
+                    page.render({ canvasContext: context, viewport: viewport });
+                });
+            });
+        </script>
+        <p>If you can't view the document, you can download it here</a>.</p>
+    {% else %}
+        <p>Document not found.</p>
+    {% endif %}
+</body>
+</html>

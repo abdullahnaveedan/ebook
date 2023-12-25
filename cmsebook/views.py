@@ -8,6 +8,10 @@ from django.shortcuts import get_object_or_404
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db.models.functions import Random
+import os
+from django.conf import settings
+import mimetypes
+
 # Create your views here.
 
 def index(request):
@@ -120,8 +124,12 @@ def top_trend(request):
     return render(request,"top_trend.html",param)
 
 def downloadbook(request,bookid):
-    
-    return render(request, "bookdetail.html")
+    data = bookinfo.objects.get(id=bookid)
+    file_path = os.path.join(settings.MEDIA_ROOT, str(data.bookfile))
+    with open(file_path, 'rb') as f:
+        response = HttpResponse(f.read(), content_type=mimetypes.guess_type(file_path)[0])
+        response['Content-Disposition'] = f'attachment; filename={os.path.basename(file_path)}'
+        return response
 
 def profile(request):
     print(request.user.username)
@@ -157,3 +165,12 @@ def manage_book(request):
         'data' : bookinfo.objects.filter(uploadby = request.user.username),
     }
     return render(request, "manage-book.html", param)
+
+def view_book(request , bookid):
+    try:
+        data = bookinfo.objects.get(id=bookid)
+        file_path = os.path.join(settings.MEDIA_ROOT, 'bookpdf', os.path.basename(str(data.bookfile)))
+        
+        return render(request, 'view-book.html', {'file_path': file_path})
+    except bookinfo.DoesNotExist:
+        raise Http404("Book does not exist")
