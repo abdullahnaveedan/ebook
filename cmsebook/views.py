@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.models import User
 from .models import *
+from django.shortcuts import get_object_or_404
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db.models.functions import Random
@@ -24,7 +25,7 @@ def all_books(request):
         if form_val is not None:
             data = bookinfo.objects.filter(booktitle__icontains=form_val)
         else:
-            data = bookinfo.objects.all().order_by('?')  # '?' for random ordering
+            data = bookinfo.objects.filter(status = "on").order_by('?')  # '?' for random ordering
         cnt = len(data)
 
     param = {
@@ -99,7 +100,8 @@ def upload_book(request):
             language = language,
             keyword = keyword,
             bookcover = bookcoverimage,
-            bookfile = bookpdf).save()
+            bookfile = bookpdf,
+            uploadby = request.user.username).save()
         return redirect("all_books")
     return render(request, "uploadbook.html")
 
@@ -120,3 +122,38 @@ def top_trend(request):
 def downloadbook(request,bookid):
     
     return render(request, "bookdetail.html")
+
+def profile(request):
+    print(request.user.username)
+    return redirect("upload_book")
+
+def manage_book(request):
+    if request.method == "POST":
+        booktitle = request.POST.get("booktitle")
+        authorname = request.POST.get("authorname")
+        language = request.POST.get("language")
+        status = request.POST.get("active")
+        id = request.POST.get("id")
+        info = bookinfo.objects.get(id = id)
+        info.booktitle = booktitle 
+        info.authorname = authorname 
+        info.language = language 
+        info.status = status 
+        info.save()
+
+    if request.method == "GET":
+        id = request.GET.get("id")
+        if id == None:
+            pass
+        else:
+            try:
+                info = get_object_or_404(bookinfo, id=id)
+                info.delete()
+                return redirect("profile")
+            except bookinfo.DoesNotExist:
+                print("Book not found")
+
+    param = {
+        'data' : bookinfo.objects.filter(uploadby = request.user.username),
+    }
+    return render(request, "manage-book.html", param)

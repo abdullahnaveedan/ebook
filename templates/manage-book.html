@@ -1,0 +1,135 @@
+{% extends "profile.html" %}
+{% block title %}Manage Book{% endblock title %}
+{% block css %}
+  h3,p{
+    font-family:'Calibri'
+  }
+  label{
+    font-weight:500;
+  }
+
+
+{% endblock css %}
+{% block Settings %}
+  <div class="container p-2 mt-4" >
+   
+        <table class="table" style="background-color: whitesmoke;">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author Name</th>
+                <th scope="col">Language</th>
+                <th scope="col">Catagory</th>
+                <th scope="col">Status</th>
+                <th scope="col">Handle</th>
+              </tr>
+            </thead>
+        
+            <tbody class="thead-dark">
+                {% for i in data %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{i.booktitle}}</td>
+                    <td>{{i.authorname}}</td>
+                    <td>{{i.language}}</td>
+                    <td>{{i.catagory}} </td>
+                    
+                    <td>
+                        {% if i.status == "on" %}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="green" class="bi bi-dot" viewBox="0 0 16 16">
+                            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                          </svg>
+                        {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="red" class="bi bi-dot" viewBox="0 0 16 16">
+                          <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                        </svg>
+                        {% endif %}
+                    </td>
+                    <td>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#k_{{ i.id }}">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                      </svg>
+                    </button>
+                    
+                    <div class="modal fade" id="k_{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Info</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <form method="POST"> {% csrf_token %}
+                            <div class="modal-body">
+                              <div class="form-row">
+                                <div class="col">
+                                  <label for="">Book Title</label>
+                                  <input type="text" class="form-control" name="booktitle" value="{{ i.booktitle }}">
+                                </div>
+
+                                <div class="col">
+                                  <label for="">Author Name</label>
+                                  <input type="text" class="form-control" name ="authorname" value="{{ i.authorname }}">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="inputAddress">Language</label>
+                                <input type="text" class="form-control" name="language" id="inputAddress" value="{{i.language}}">
+                              </div>
+                              <label for="">Status</label>
+                              <select class="form-select form-control" name = "active">
+                                <option {% if i.status == "on" %} selected  {% endif %} value="on">Active</option>
+                                <option {% if i.status == "off" %} selected  {% endif %} value="off">Inactive</option>
+                              </select>
+                              <input type="text" name="id" class="d-none" value="{{i.id}}">
+                            </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-info">Update</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#del_{{ i.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-trash" viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                        </svg>
+                      </button>
+                      <div class="modal fade" id="del_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <form method="GET">
+                              <div class="modal-body">
+                                <p class="text">Are you sure to delete this book?</p>
+
+                                <input type="text" name="id" class="d-none" value="{{i.id}}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger">Yes, I'm Sure</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                  </td>
+                  </tr>
+                  
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+
+{% endblock Settings %}

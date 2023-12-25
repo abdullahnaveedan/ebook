@@ -1,15 +1,16 @@
-{% extends "structure.html" %} {% block title %}Upload Book{% endblock title %}
+{% extends "profile.html" %} {% block title %}Upload Book{% endblock title %}
 {% block css %} hr{ border-top: 1px solid black; margin-right:18rem;
 margin-left:18rem; } .form:hover{ box-shadow:10px 17px 31px; } label{
-font-weight:500; } {% endblock css %} {% block body %}
+font-weight:500; } {% endblock css %} {% block Settings %}
 
 <div
-  class="container form "
+  class="form"
   style="
     margin-top: 2rem !important;
     padding: 2rem;
     background: #ddd;
     border-radius: 8px;
+    
   "
 >
   <div class="text-center">
@@ -137,7 +138,7 @@ font-weight:500; } {% endblock css %} {% block body %}
 
 </div>
 <br /><br /><br />
-{% endblock body %}
+{% endblock Settings %}
 
 {% block js %}
 function disableSpace(event) {

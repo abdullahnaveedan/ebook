@@ -12,8 +12,8 @@ class bookinfo(models.Model):
     keyword = models.CharField(default="", max_length=50)
     bookcover = models.FileField(upload_to="bookcovers/")
     bookfile = models.FileField( upload_to="bookpdf/")
+    status = models.CharField(default="on", max_length=5)
     uploadby = models.CharField(default="", max_length=50)
-    
     def __str__(self):
         return self.booktitle
     

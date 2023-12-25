@@ -16,6 +16,9 @@ urlpatterns = [
     path('authenticate-signin', views.authenticate_signin, name="authenticate_signin"),
     path('authenticate-logout', views.authenticate_logout, name="authenticate_logout"),
     
-    path('upload-book', views.upload_book , name="upload_book"),
     path('top-trend', views.top_trend , name="top_trend"),
+    path('settings', views.profile, name="profile"),
+    path('settings/upload-book', views.upload_book, name="upload_book"),
+    path('settings/manage-book',views.manage_book, name="manage_book"),
+
 ]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
