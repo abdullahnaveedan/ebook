@@ -124,6 +124,10 @@ def top_trend(request):
     return render(request,"top_trend.html",param)
 
 def downloadbook(request,bookid):
+    book_instance = bookinfo.objects.get(id=bookid)
+    if not totaldownloaders.objects.filter(bookid=book_instance, downloade_by=request.user.username).exists():
+        totaldownloaders.objects.create(bookid=book_instance, downloade_by=request.user.username)
+
     data = bookinfo.objects.get(id=bookid)
     file_path = os.path.join(settings.MEDIA_ROOT, str(data.bookfile))
     with open(file_path, 'rb') as f:
@@ -165,12 +169,3 @@ def manage_book(request):
         'data' : bookinfo.objects.filter(uploadby = request.user.username),
     }
     return render(request, "manage-book.html", param)
-
-def view_book(request , bookid):
-    try:
-        data = bookinfo.objects.get(id=bookid)
-        file_path = os.path.join(settings.MEDIA_ROOT, 'bookpdf', os.path.basename(str(data.bookfile)))
-        
-        return render(request, 'view-book.html', {'file_path': file_path})
-    except bookinfo.DoesNotExist:
-        raise Http404("Book does not exist")

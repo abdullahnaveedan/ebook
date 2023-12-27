@@ -16,12 +16,19 @@ class bookinfo(models.Model):
     uploadby = models.CharField(default="", max_length=50)
     def __str__(self):
         return self.booktitle
-    
-class booksdownloadrecord(models.Model):
-    bookId = models.ForeignKey(bookinfo, on_delete=models.CASCADE)
-    downloadby = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class totalviews(models.Model):
+    bookid = models.ForeignKey(bookinfo, on_delete=models.CASCADE)
+    viewd_by = models.CharField(max_length=50, default="")
 
     def __str__(self):
-        return self.bookId
-        
+        return self.bookid
+    
+
+class totaldownloaders(models.Model):
+    bookid = models.ForeignKey(bookinfo, on_delete=models.CASCADE)
+    downloade_by = models.CharField(max_length=50, default="")
+    
+    def __str__(self):
+        return str(self.bookid)
     

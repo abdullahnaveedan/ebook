@@ -20,6 +20,5 @@ urlpatterns = [
     path('settings', views.profile, name="profile"),
     path('settings/upload-book', views.upload_book, name="upload_book"),
     path('settings/manage-book',views.manage_book, name="manage_book"),
-    path("all-books/view-book-<int:bookid>", views.view_book , name="view_book")
 
 ]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

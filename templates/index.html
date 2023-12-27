@@ -216,6 +216,10 @@ svg {
     outline: 0;
   }
 }
+.card-body p{
+  height:2rem;
+  overflow:;
+}
 {% endblock css %}
 
 {% block body %}
@@ -585,11 +589,11 @@ svg {
     <hr>
     <div class="d-flex flex-wrap" style="margin-left: 4rem; margin-top: 4rem; ">
       {% for i in data %}
-        <div class="card m-4" style="width: 18rem;box-shadow:10px 10px 10px #ccc;">
+        <div class="card m-4 " style="width: 18rem;box-shadow:10px 10px 10px #ccc;">
           <img class="card-img-top" src= "media/{{i.bookcover}}" style="height:18rem;">
           <div class="card-body">
             <h5 class="card-title">{{i.booktitle}}</h5>
-            <p class="card-text">{{i.bookdescription|linebreaksbr}}</p>
+            <p class="card-text">{{i.bookdescription}}</p>
             <a href="all-books/detail{{i.id}}" style="background-color:#0c096b; color:white;" class="btn">Preview Book Details</a>
           </div>
       </div>
