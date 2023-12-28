@@ -14,7 +14,7 @@ urlpatterns = [
     
     path('authenticate-login', views.authenticate_login, name="authenticate_login"),
     path('authenticate-signin', views.authenticate_signin, name="authenticate_signin"),
-    path('authenticate-logout', views.authenticate_logout, name="authenticate_logout"),
+    path('authenticate-logout/', views.authenticate_logout, name="authenticate_logout"),
     
     path('top-trend', views.top_trend , name="top_trend"),
     path('settings', views.profile, name="profile"),

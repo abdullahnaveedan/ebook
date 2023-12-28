@@ -361,6 +361,21 @@
     ></script>
     
     <script>
+      var timeout;
+  
+      function resetSessionTimeout() {
+          clearTimeout(timeout);
+          timeout = setTimeout(logout, 15 * 60 * 1000);
+      }
+  
+      function logout() {
+          window.location.href = "{% url 'authenticate_logout' %}";
+      }
+      document.addEventListener('mousemove', resetSessionTimeout);
+      document.addEventListener('keydown', resetSessionTimeout);
+      resetSessionTimeout();
+  
+      
       {% block js %}{% endblock js %}
     </script>
   </body>
