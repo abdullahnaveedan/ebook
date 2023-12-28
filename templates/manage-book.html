@@ -21,20 +21,22 @@
                 <th scope="col">Author Name</th>
                 <th scope="col">Language</th>
                 <th scope="col">Catagory</th>
+                <th scope="col">Total Download</th>
                 <th scope="col">Status</th>
                 <th scope="col">Handle</th>
               </tr>
             </thead>
         
             <tbody class="thead-dark">
-                {% for i in data %}
+                {% for i,j in data %}
                 <tr>
                     <th scope="row">{{forloop.counter}}</th>
                     <td>{{i.booktitle}}</td>
                     <td>{{i.authorname}}</td>
                     <td>{{i.language}}</td>
                     <td>{{i.catagory}} </td>
-                    
+                    <td class="text-center"><b>{{j}} </b></td>
+            
                     <td>
                         {% if i.status == "on" %}
                           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="green" class="bi bi-dot" viewBox="0 0 16 16">

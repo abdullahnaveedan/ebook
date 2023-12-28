@@ -4,11 +4,31 @@
 .card{
   box-shadow:10px 10px 10px #ccc;
 }
+.btntop{
+  top: 35rem;
+  position: fixed;
+  animation: moveUpDown 2s infinite;
+  cursor: pointer;
+  z-index:1;
+  left:4rem;
+  
+}
+@keyframes moveUpDown {
+0%, 100% { transform: translateY(0); } 
+50% { transform: translateY(0.8rem); }
+} 
 {% endblock css %}
 
 
 {% block body %}
 {% load static %}
+<div class="btntop" >
+  <a href="#icons" onclick='window.scrollTo({top: 0, behavior: "smooth"});'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#e944d8" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+  </svg></a>
+</div>
+
 <div class="container d-flex flex-wrap">
   
   <div>
@@ -32,7 +52,7 @@
         <img class="card-img-top" src= "media/{{i.bookcover}}" style="height:18rem;">
         <div class="card-body">
           <h5 class="card-title">{{i.booktitle}}</h5>
-          {% comment %} <p class="card-text">{{i.bookdescription}}</p> {% endcomment %}
+          <p class="card-text">{{i.catagory}}</p>
           <a href="all-books/detail{{i.id}}" style="background-color:#0c096b; color:white;" class="btn">Preview Book Details</a>
         </div>
     </div>

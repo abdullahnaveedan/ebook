@@ -164,8 +164,13 @@ def manage_book(request):
                 return redirect("profile")
             except bookinfo.DoesNotExist:
                 print("Book not found")
+    download_list = []
+    data = bookinfo.objects.filter(uploadby = request.user.username)
+    if data is not None:
+        for i in data:
+            download_list.append(totaldownloaders.objects.filter(bookid = i.id).count())
 
     param = {
-        'data' : bookinfo.objects.filter(uploadby = request.user.username),
+        'data' : zip(data,download_list)
     }
     return render(request, "manage-book.html", param)
